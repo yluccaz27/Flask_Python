@@ -1,0 +1,57 @@
+Agora, no main.py, vamos novamente importar da pasta de origem, o arquivo...
+from routes.cliente 
+vamos importar a variável bp_cliente
+
+from routes.cliente import bp_cliente
+em seguida, registramos no app, usando:
+
+app.register_blueprint(bp_cliente)
+mas com uma diferença, usamos, na frente do registro:
+app.register_blueprint(bp_cliente, url_prefix='/clientes')
+
+e no cliente.py, vamos atualizar o lista clientes:
+return {'pagina': 'lista_clientes'}.
+
+
+Certo, Agora, vamos criar os HTML's necessários para as paginas, verificando as funções.
+
+Criamos então:
+detalhe cliente.html
+form_edit_cliente.html
+form_cliente
+lista cliente.html
+
+
+e o primeiro que vamos mexer é no list_clientes.html:
+após ter o arquivo criado, copie um exemplo de tabela no bootstrap 5.
+em seguida, mantendo apenas uma "tr" vamos criar um loop(for) no documento HTML:
+
+ {% for cliente in clientes %}
+        <tr>
+            <th scope="row">{{ cliente.id }}</th>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>
+                <button class="btn btn-primary">Editar</button>
+                <button class="btn btn-danger">Deletar</button>
+            </td>
+        </tr>
+   {% endfor %}
+
+feito isso, crie uma pasta na RAIZ e de o nome de database, vamos criar uma database 'fake' em python.
+Dentro da database, crie o arquivo clientes.py.
+dentro desse arquivo, crie uma única variável com uma lista chamada:
+
+CLIENTES = [
+{"id":1, "nome": "Guilherme", "email": "teste@teste.com"},
+{"id":2, "nome": "João", "email": "fffff@teste.com"},
+{"id":3, "nome": "Pedro", "email": "kkkkkkk@teste.com"},
+{"id":4, "nome": "Maria", "email": "ppppppp@teste.com"},
+{"id":5, "nome": "Joana", "email": "ttttttteste.com"},
+{"id":6, "nome": "Jesus", "email": "Jesus@teste.com"},
+]
+
+ no documento cliente.py dentro da pasta routes e na rota lista clientes, vamos colocar:
+return render_template{Faça a importação de render_template}('lista clientes.html', clientes=CLIENTES)
+
+Definindo também que clientes=CLIENTES.
